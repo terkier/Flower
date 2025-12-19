@@ -2,24 +2,24 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<link href="https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>FLOWER</title>
+<title>For you</title>
 
 <style>
 :root {
-  --stem-color: #1a3a17;
-  --stem-glow: #4ade80;
-  --petal-main: #3a7bd5;
-  --petal-inner: #8fbfff;
-  --petal-edge: #1e4fa3;
-  --glow: #9fd3ff;
-  --fire-glow: #ffffff;
+  --pot-color: #2c3e50;
+  --pot-rim: #34495e;
+  --blue-main: #0026ff;
+  --blue-edge: #000b4d;
+  --white-main: #ffffff;
+  --white-edge: #d1d1d1;
 }
 
 body {
   margin: 0;
   height: 100dvh;
-  background: radial-gradient(circle at center, #161a2e, #060811);
+  background: radial-gradient(circle at center, #0a0c1a, #020308);
   overflow: hidden;
   display: flex;
   justify-content: center;
@@ -30,251 +30,284 @@ body {
   user-select: none;
 }
 
-/* ================= TEXT ================= */
+
 .quote-container {
   position: fixed;
-  top: 10%;
+  top: 8%;
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
   text-align: center;
-  pointer-events: none;
-  z-index: 20;
+  z-index: 100;
   opacity: 0;
-  animation: fade-in 2.5s ease-out forwards, float-text 4s ease-in-out infinite;
-  animation-delay: 1.5s, 3.5s;
+  animation: fade-in 2s ease-out forwards;
 }
 
 .quote-text {
-  font-family: Georgia, serif;
+  font-family: "Winky Rough";
   font-style: italic;
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: white;
-  text-shadow: 0 0 15px var(--glow);
+  text-shadow: 0 0 15px #4d66ff;
+  margin-bottom: 5px;
 }
 
-.new-year-text {
-  font-family: Arial, sans-serif;
-  font-size: 1.2rem;
-  letter-spacing: 3px;
-  color: var(--glow);
-  opacity: 0.85;
+.happy-new-year {
+  font-family: "Winky Rough";
+  font-size: 1.8rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px #fff, 0 0 20px #0026ff;
+  opacity: 0.9;
 }
 
-/* ================= FLOWER CONTAINER ================= */
-.flower-container {
+
+.pot-container {
   position: relative;
+  width: 100%;
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: -10px;
+}
+
+.pot {
+  position: absolute;
+  bottom: 0;
+  width: 100px;
+  height: 80px;
+  background: linear-gradient(to right, #1a252f, var(--pot-color), #34495e);
+  border-radius: 5px 5px 20px 20px;
+  z-index: 20;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.pot-rim {
+  position: absolute;
+  bottom: 75px;
+  width: 110px;
+  height: 15px;
+  background: var(--pot-rim);
+  border-radius: 5px;
+  z-index: 21;
+}
+
+
+.flower-container {
+  position: absolute;
+  bottom: 40px; 
   display: flex;
   flex-direction: column;
   align-items: center;
   transform-origin: bottom center;
-  z-index: 5;
-  margin-bottom: 50px;
 }
 
-.flower-head {
-  position: relative;
-  z-index: 10; 
-  animation: sway 6s ease-in-out infinite;
-}
+.f1 { transform: rotate(-22deg) scale(0.8); }
+.f2 { transform: rotate(-10deg) scale(0.9); z-index: 8; }
+.f3 { transform: rotate(0deg) scale(1); z-index: 10; }
+.f4 { transform: rotate(10deg) scale(0.9); z-index: 8; }
+.f5 { transform: rotate(22deg) scale(0.8); }
+
+.flower-head { position: relative; z-index: 10; animation: sway 6s ease-in-out infinite; }
 
 .petal {
   position: absolute;
   bottom: 0;
   left: 50%;
-  background:
-    radial-gradient(circle at 50% 10%, var(--fire-glow), transparent 80%),
-    linear-gradient(to top, var(--petal-edge), var(--petal-main), var(--petal-inner));
   border-radius: 50% 50% 20% 20% / 80% 80% 20% 20%;
   transform-origin: bottom center;
   opacity: 0;
-  box-shadow: inset 0 -5px 10px rgba(0,0,0,0.2);
+  box-shadow: inset 0 -5px 8px rgba(0,0,0,0.3);
   animation: bloom-up 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
+.blue .petal { background: linear-gradient(to top, var(--blue-edge), var(--blue-main), #4d66ff); }
+.white .petal { background: linear-gradient(to top, var(--white-edge), var(--white-main), #ffffff); }
+
 .core {
   position: absolute;
-  width: 35px;
-  height: 35px;
-  background: radial-gradient(circle, #ffffff, #8fbfff, #1e4fa3);
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   transform: translate(-50%, -50%);
   z-index: 15;
-  box-shadow: 0 0 25px #fff, 0 0 50px var(--glow);
-  animation: pulse-core 2s infinite alternate;
+  background: radial-gradient(circle, #fff, #999);
 }
 
-/* ================= ENHANCED STEM ================= */
 .stem {
-  width: 10px; 
-  height: 28vh;
-  /* 3D Gradient Shading */
-  background: linear-gradient(to right, #122b10, var(--stem-color), #2d5a27, #122b10);
-  border-radius: 5px;
-  position: relative;
-  z-index: 2;
-  overflow: hidden;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  width: 5px;
+  height: 25vh;
+  background: linear-gradient(to bottom, #1a3a17, #0d1a0b);
+  border-radius: 2px;
 }
 
-/* The Energy Vein */
-.stem::before {
-  content: '';
+
+.firework-projectile {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  z-index: 50;
+  box-shadow: 0 0 10px #fff;
+}
+
+.firework-spark {
+  position: fixed;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  z-index: 50;
+  pointer-events: none;
+}
+
+
+.baby-breath {
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(to bottom, var(--glow), transparent);
-  opacity: 0.4;
-  animation: pulse-vein 3s ease-in-out infinite alternate;
-}
-
-/* ================= ENHANCED LEAVES ================= */
-.leaf {
-  position: absolute;
-  width: 35px;
-  height: 18px;
-  background: linear-gradient(135deg, #3f7f3a, #122b10);
-  border-radius: 0 100% 0 100%;
-  box-shadow: inset 2px 2px 5px rgba(255,255,255,0.1);
-}
-.leaf.left { left: -30px; top: 60px; transform: rotate(-25deg); }
-.leaf.right { right: -35px; top: 110px; transform: rotate(110deg); }
-
-/* ================= ANIMATIONS ================= */
-@keyframes pulse-vein {
-  0% { opacity: 0.2; height: 10%; }
-  100% { opacity: 0.6; height: 100%; }
+  background: white;
+  border-radius: 50%;
+  filter: blur(1px);
+  opacity: 0.6;
+  pointer-events: none;
+  animation: float-up var(--d) linear infinite;
 }
 
 @keyframes bloom-up {
-  0% { transform: translateX(-50%) scale(0) rotate(var(--rot)); opacity: 0; }
-  30% { opacity: 1; }
-  100% { transform: translateX(-50%) scale(1) rotate(var(--rot)); opacity: 1; }
-}
-
-@keyframes pulse-core {
-  0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 20px #fff; }
-  100% { transform: translate(-50%, -50%) scale(1.1); box-shadow: 0 0 40px var(--glow); }
-}
-
-@keyframes sway { 0%,100% { transform: rotate(-1.5deg); } 50% { transform: rotate(1.5deg); } }
-@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes float-text { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -10px); } }
-
-/* ================= PARTICLES & FIREWORKS ================= */
-.particle {
-  position: absolute;
-  background: #fff;
-  border-radius: 50%;
-  pointer-events: none;
-  opacity: 0.6;
-  animation: float-up var(--duration) linear infinite;
-  z-index: 0;
+  to { transform: translateX(-50%) scale(1) rotate(var(--r)); opacity: 1; }
 }
 @keyframes float-up {
-  0% { transform: translateY(0) scale(1); opacity: 0; }
-  20% { opacity: 0.7; }
-  100% { transform: translateY(-110vh) scale(0.3); opacity: 0; }
+  0% { transform: translateY(0); opacity: 0; }
+  50% { opacity: 0.7; }
+  100% { transform: translateY(-100vh); opacity: 0; }
 }
-.firework, .spark { position: fixed; border-radius: 50%; pointer-events: none; z-index: 3; }
-.firework { width: 3px; height: 3px; background: white; bottom: -10px; animation: launch 1.5s ease-out forwards; }
-@keyframes launch { to { transform: translateY(-75vh); opacity: 0; } }
-.spark { width: 4px; height: 4px; animation: explode 1.2s ease-out forwards; }
-@keyframes explode { from { transform: translate(0,0); opacity:1; } to { transform: translate(var(--x), var(--y)); opacity:0; } }
+@keyframes sway { 0%, 100% { transform: rotate(-1.5deg); } 50% { transform: rotate(1.5deg); } }
+@keyframes fade-in { to { opacity: 1; } }
 
-@media (max-width:600px) {
-  .flower-container { transform: scale(0.65); }
-  .quote-text { font-size: 1.6rem; }
+@media (max-width: 600px) {
+  .pot-container { transform: scale(0.85); }
+  .quote-text { font-size: 1.4rem; }
+  .happy-new-year { font-size: 1.1rem; }
 }
 </style>
 </head>
-
 <body>
 
 <div class="quote-container">
   <div class="quote-text">"Everything blooms in its own time."</div>
-  <div class="new-year-text">Happy New Year Nicole!</div>
+  <div class="happy-new-year">Happy New Year!</div>
 </div>
 
-<div class="flower-container" id="flowerContainer">
-  <div class="flower-head" id="flowerHead">
-    <div class="core"></div>
-  </div>
-  <div class="stem">
-    <div class="leaf left"></div>
-    <div class="leaf right"></div>
-  </div>
+<div class="pot-container" id="bouquet">
+  <div class="pot"></div>
+  <div class="pot-rim"></div>
+  
+  <div class="flower-container f1 white"><div class="flower-head" id="h1"><div class="core"></div></div><div class="stem"></div></div>
+  <div class="flower-container f2 blue"><div class="flower-head" id="h2"><div class="core"></div></div><div class="stem"></div></div>
+  <div class="flower-container f3 white"><div class="flower-head" id="h3"><div class="core"></div></div><div class="stem"></div></div>
+  <div class="flower-container f4 blue"><div class="flower-head" id="h4"><div class="core"></div></div><div class="stem"></div></div>
+  <div class="flower-container f5 white"><div class="flower-head" id="h5"><div class="core"></div></div><div class="stem"></div></div>
 </div>
 
 <script>
-const head = document.getElementById("flowerHead");
-const container = document.getElementById("flowerContainer");
+function drawFlower(id, delay) {
+  const h = document.getElementById(id);
+  const config = [[12, 40, 95, 0], [10, 32, 65, 0.4], [8, 22, 40, 0.8]];
+  config.forEach(([c, w, h_val, d]) => {
+    for(let i=0; i<c; i++){
+      const p = document.createElement("div");
+      p.className = "petal";
+      p.style.width = w+"px"; p.style.height = h_val+"px";
+      p.style.setProperty("--r", (360/c*i)+"deg");
+      p.style.animationDelay = (delay + d + (i*0.06))+"s";
+      h.appendChild(p);
+    }
+  });
+}
 
-/* PETAL ARRAY - NORMAL SIZE */
-[[18,50,140,0],[14,45,110,0.5],[11,40,85,1.0],[9,30,60,1.5]]
-.forEach(([c,w,h,d])=>{
-  for(let i=0;i<c;i++){
-    const p=document.createElement("div");
-    p.className="petal";
-    p.style.width=w+"px";
-    p.style.height=h+"px";
-    p.style.setProperty("--rot",(360/c*i)+"deg");
-    p.style.animationDelay=(d+i*0.08)+"s";
-    head.appendChild(p);
+drawFlower("h3", 0.2); 
+drawFlower("h2", 0.7); 
+drawFlower("h4", 0.7);
+drawFlower("h1", 1.2); 
+drawFlower("h5", 1.2);
+
+setInterval(() => {
+  const b = document.createElement("div");
+  b.className = "baby-breath";
+  const s = Math.random()*3+2;
+  b.style.width = s+"px"; b.style.height = s+"px";
+  b.style.left = Math.random()*100+"vw";
+  b.style.bottom = "10vh";
+  b.style.setProperty("--d", (Math.random()*5+5)+"s");
+  document.body.appendChild(b);
+  setTimeout(() => b.remove(), 10000);
+}, 400);
+
+function launchFirework(side) {
+  const startX = side === 'left' ? Math.random() * 20 + 5 : Math.random() * 20 + 75;
+  const projectile = document.createElement('div');
+  projectile.className = 'firework-projectile';
+  projectile.style.left = startX + 'vw';
+  projectile.style.bottom = '0';
+  document.body.appendChild(projectile);
+
+  const targetY = Math.random() * 40 + 40; 
+  const duration = 1200; 
+  
+  projectile.animate([
+    { bottom: '0', opacity: 1 },
+    { bottom: targetY + 'vh', opacity: 1, offset: 0.9 },
+    { bottom: targetY + 'vh', opacity: 0 }
+  ], {
+    duration: duration,
+    easing: 'ease-out'
+  }).onfinish = () => {
+    projectile.remove();
+    createExplosion(startX, targetY);
+  };
+}
+
+function createExplosion(x, y) {
+  const colors = ['#0026ff', '#00ffcc', '#ffffff', '#ff00ff', '#0099ff'];
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  const sparkCount = 40;
+
+  for (let i = 0; i < sparkCount; i++) {
+    const spark = document.createElement('div');
+    spark.className = 'firework-spark';
+    spark.style.backgroundColor = color;
+    spark.style.left = x + 'vw';
+    spark.style.bottom = y + 'vh';
+    spark.style.boxShadow = `0 0 8px ${color}`;
+    document.body.appendChild(spark);
+
+    const angle = (Math.PI * 2 / sparkCount) * i;
+    const velocity = Math.random() * 15 + 5;
+    const vx = Math.cos(angle) * velocity;
+    const vy = Math.sin(angle) * velocity;
+
+    spark.animate([
+      { transform: 'translate(0, 0)', opacity: 1 },
+      { transform: `translate(${vx}vw, ${-vy}vh)`, opacity: 0 }
+    ], {
+      duration: 1000 + Math.random() * 500,
+      easing: 'cubic-bezier(0, .9, .57, 1)'
+    }).onfinish = () => spark.remove();
   }
-});
-
-function handleMove(x, y) {
-  const rotY = (x - window.innerWidth / 2) / window.innerWidth * 15;
-  const rotX = -(y - window.innerHeight / 2) / window.innerHeight * 8;
-  const scale = window.innerWidth <= 600 ? 0.65 : 1;
-  container.style.transform = `scale(${scale}) rotateY(${rotY}deg) rotateX(${rotX}deg)`;
-}
-document.addEventListener("mousemove", e => handleMove(e.clientX, e.clientY));
-document.addEventListener("touchmove", e => handleMove(e.touches[0].clientX, e.touches[0].clientY), {passive:true});
-
-function createParticle(){
-  const p=document.createElement("div");
-  p.className="particle";
-  const size=Math.random()*2+1;
-  p.style.width=size+"px"; p.style.height=size+"px";
-  p.style.left=Math.random()*100+"vw";
-  p.style.bottom="-20px";
-  p.style.setProperty("--duration",(Math.random()*6+6)+"s");
-  document.body.appendChild(p);
-  setTimeout(()=>p.remove(),12000);
-}
-setInterval(createParticle, 500);
-
-function launchFirework(side){
-  const fw=document.createElement("div");
-  fw.className="firework";
-  fw.style.left=side==="left"?"15%":"85%";
-  document.body.appendChild(fw);
-  setTimeout(()=>{
-    fw.remove();
-    explode(side==="left"?innerWidth*0.15:innerWidth*0.85, innerHeight*0.3);
-  },1400);
 }
 
-function explode(x,y){
-  const colors=["#6bcfff","#ffffff","#9fd3ff"];
-  for(let i=0;i<15;i++){
-    const s=document.createElement("div");
-    s.className="spark";
-    s.style.left=x+"px"; s.style.top=y+"px";
-    s.style.background=colors[Math.floor(Math.random()*colors.length)];
-    s.style.setProperty("--x",(Math.random()*250-125)+"px");
-    s.style.setProperty("--y",(Math.random()*250-125)+"px");
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(),1200);
-  }
-}
-setInterval(()=>launchFirework("left"),6000);
-setInterval(()=>launchFirework("right"),7500);
+setTimeout(() => {
+  setInterval(() => launchFirework('left'), 3000);
+  setTimeout(() => {
+    setInterval(() => launchFirework('right'), 3000);
+  }, 1500);
+}, 2000);
+
+document.addEventListener("touchmove", e => {
+  const rot = (e.touches[0].clientX - window.innerWidth/2) / 15;
+  document.getElementById("bouquet").style.transform = `rotateY(${rot}deg)`;
+}, {passive: true});
 </script>
 </body>
 </html>
