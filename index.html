@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>FLOWER</title>
 
 <style>
@@ -16,7 +17,7 @@
 
 body {
   margin: 0;
-  height: 100vh;
+  height: 100dvh;
   background: radial-gradient(circle at center, #161a2e, #060811);
   overflow: hidden;
   display: flex;
@@ -24,16 +25,16 @@ body {
   align-items: flex-end;
   padding-bottom: 50px;
   perspective: 1000px;
+ 
+  touch-action: none; 
 }
-
-
 
 .quote-container {
   position: fixed;
   top: 15%;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
+  width: 90%;
   text-align: center;
   pointer-events: none;
   z-index: 20;
@@ -44,7 +45,7 @@ body {
 }
 
 .quote-text {
-  font-family: "Winky Rough";
+  font-family: "Winky Rough", Georgia, serif; 
   font-style: italic;
   font-size: 2.5rem;
   color: white;
@@ -52,14 +53,12 @@ body {
 }
 
 .new-year-text {
-  font-family: "Winky Rough";
+  font-family: "Winky Rough", Arial, sans-serif;
   font-size: 1.8rem;
   letter-spacing: 4px;
   color: var(--glow);
   opacity: 0.85;
 }
-
-
 
 .flower-container {
   position: relative;
@@ -82,14 +81,12 @@ body {
   bottom: 0;
   left: 50%;
   background:
-    radial-gradient(circle at 50% 10%, var(--fire-glow), transparent 70%), /* Inner light source */
+    radial-gradient(circle at 50% 10%, var(--fire-glow), transparent 70%),
     linear-gradient(to top, var(--petal-edge), var(--petal-main), var(--petal-inner));
   border-radius: 50% 50% 25% 25% / 80% 80% 20% 20%;
   transform-origin: bottom center;
   opacity: 0;
-  box-shadow: inset 0 -10px 20px rgba(0,0,0,0.3),
-              0 0 20px rgba(120,180,255,0);
-  
+  box-shadow: inset 0 -10px 20px rgba(0,0,0,0.3);
   animation: bloom-up 3s cubic-bezier(.17,.67,.83,.67) forwards,
              petal-glow 4s ease-in-out infinite alternate;
 }
@@ -98,12 +95,7 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    to top,
-    rgba(255,255,255,0.1),
-    rgba(255,255,255,0.1) 1px,
-    transparent 6px
-  );
+  background: repeating-linear-gradient(to top, rgba(255,255,255,0.1) 0, rgba(255,255,255,0.1) 1px, transparent 6px);
   border-radius: inherit;
   opacity: 0.3;
 }
@@ -130,6 +122,11 @@ body {
   z-index: 1;
 }
 
+
+@media (max-height: 700px) {
+  .stem { height: 30vh; }
+}
+
 .leaf {
   position: absolute;
   width: 50px;
@@ -137,43 +134,33 @@ body {
   background: linear-gradient(to right, #3f7f3a, var(--stem-color));
   border-radius: 0 100% 0 100%;
 }
-
 .leaf.left { left: -45px; top: 120px; transform: rotate(-25deg); }
 .leaf.right { right: -55px; top: 180px; transform: rotate(110deg); }
-
-
 
 @keyframes bloom-up {
   from { transform: translateX(-50%) scale(0) rotate(var(--rot)); opacity: 0; }
   to { transform: translateX(-50%) scale(1) rotate(var(--rot)); opacity: 1; }
 }
-
 @keyframes petal-glow {
   0% { filter: brightness(1) drop-shadow(0 0 5px var(--glow)); }
   100% { filter: brightness(1.4) drop-shadow(0 0 15px #fff); }
 }
-
 @keyframes pulse-core {
   0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 40px #fff; }
   100% { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 80px #fff, 0 0 120px var(--glow); }
 }
-
 @keyframes fade-in {
   from { opacity: 0; transform: translate(-50%, 20px); }
   to { opacity: 1; transform: translate(-50%, 0); }
 }
-
 @keyframes float-text {
   0%,100% { transform: translate(-50%, 0); }
   50% { transform: translate(-50%, -15px); }
 }
-
 @keyframes sway {
   0%,100% { transform: rotate(-3deg); }
   50% { transform: rotate(3deg); }
 }
-
-
 
 .particle {
   position: absolute;
@@ -182,26 +169,26 @@ body {
   pointer-events: none;
   box-shadow: 0 0 10px var(--glow);
   animation: float-up var(--duration) linear infinite;
+  z-index: 0;
 }
-
 @keyframes float-up {
   0% { transform: translateY(0) scale(1); opacity: 0; }
   50% { opacity: 0.8; }
-  100% { transform: translateY(-100vh) scale(0); opacity: 0; }
+  100% { transform: translateY(-110vh) scale(0); opacity: 0; }
 }
 
 .firework, .spark { position: fixed; border-radius: 50%; pointer-events: none; z-index: 3; }
 .firework { width: 4px; height: 4px; background: white; bottom: -10px; animation: launch 1.5s ease-out forwards; }
-@keyframes launch { to { transform: translateY(-70vh); opacity: 0; } }
+@keyframes launch { to { transform: translateY(-75vh); opacity: 0; } }
 .spark { width: 6px; height: 6px; animation: explode 1.2s ease-out forwards; }
 @keyframes explode {
   from { transform: translate(0,0) scale(1); opacity:1; }
   to { transform: translate(var(--x), var(--y)) scale(0); opacity:0; }
 }
 
-
 @media (max-width:600px) {
-  .quote-text { font-size: 1.2rem; }
+  .quote-text { font-size: 1.5rem; } /* Slightly larger than before but stable */
+  .new-year-text { font-size: 1.2rem; }
   .flower-container { transform: scale(0.7); transform-origin: bottom center; }
 }
 </style>
@@ -228,7 +215,6 @@ body {
 const head = document.getElementById("flowerHead");
 const container = document.getElementById("flowerContainer");
 
-
 [[18,80,230,0],[14,70,200,0.5],[11,60,160,1.0],[9,45,110,1.5]]
 .forEach(([c,w,h,d])=>{
   for(let i=0;i<c;i++){
@@ -242,15 +228,15 @@ const container = document.getElementById("flowerContainer");
   }
 });
 
-
 function handleMove(x, y) {
-  const rotY = (x - window.innerWidth / 2) / window.innerWidth * 30;
-  const rotX = -(y - window.innerHeight / 2) / window.innerHeight * 20;
+  const rotY = (x - window.innerWidth / 2) / window.innerWidth * 25;
+  const rotX = -(y - window.innerHeight / 2) / window.innerHeight * 15;
   container.style.transform = `rotateY(${rotY}deg) rotateX(${rotX}deg)`;
 }
 document.addEventListener("mousemove", e => handleMove(e.clientX, e.clientY));
-document.addEventListener("touchmove", e => handleMove(e.touches[0].clientX, e.touches[0].clientY), {passive:true});
-
+document.addEventListener("touchmove", e => {
+  handleMove(e.touches[0].clientX, e.touches[0].clientY);
+}, {passive:true});
 
 function createParticle(){
   const p=document.createElement("div");
@@ -258,12 +244,12 @@ function createParticle(){
   const size=Math.random()*3+1;
   p.style.width=size+"px"; p.style.height=size+"px";
   p.style.left=Math.random()*100+"vw";
-  p.style.bottom="-10px";
+  p.style.bottom="-20px";
   p.style.setProperty("--duration",(Math.random()*5+5)+"s");
   document.body.appendChild(p);
   setTimeout(()=>p.remove(),10000);
 }
-setInterval(createParticle,200);
+setInterval(createParticle,250);
 
 function launchFirework(side){
   const fw=document.createElement("div");
@@ -290,7 +276,7 @@ function explode(x,y){
   }
 }
 setInterval(()=>launchFirework("left"),4000);
-setInterval(()=>launchFirework("right"),5000);
+setInterval(()=>launchFirework("right"),5500);
 </script>
 </body>
 </html>
