@@ -6,7 +6,6 @@
 <title>FLOWER</title>
 
 <style>
-
 /* If it meant to be then I'll see you again.*/
 
 :root {
@@ -30,7 +29,6 @@ body {
   perspective: 1000px;
   touch-action: none; 
 }
-
 
 .quote-container {
   position: fixed;
@@ -62,7 +60,6 @@ body {
   opacity: 0.85;
 }
 
-
 .flower-container {
   position: relative;
   display: flex;
@@ -71,7 +68,7 @@ body {
   transform-origin: bottom center;
   transition: transform 0.2s ease-out;
   z-index: 5;
-  margin-bottom: 20px;
+  margin-bottom: 40px; /* Space for roots on mobile */
 }
 
 .flower-head {
@@ -106,7 +103,6 @@ body {
   animation: pulse-core 2s infinite alternate;
 }
 
-
 .stem-group {
   position: relative;
   display: flex;
@@ -115,7 +111,7 @@ body {
 }
 
 .stem {
-  width: 12px; 
+  width: 14px; /* Stronger stem */
   height: 35vh;
   background: linear-gradient(to bottom, var(--stem-color), #122b10);
   border-radius: 6px 6px 2px 2px;
@@ -124,14 +120,13 @@ body {
   z-index: 2;
 }
 
-
 .stem::after {
   content: '';
   position: absolute;
   bottom: -5px;
   left: 50%;
   transform: translateX(-50%);
-  width: 24px;
+  width: 28px;
   height: 15px;
   background: #122b10;
   border-radius: 50% 50% 0 0;
@@ -148,17 +143,16 @@ body {
 .root-tendril {
   position: absolute;
   background: linear-gradient(to bottom, #122b10, transparent);
-  width: 4px;
+  width: 5px; /* Thicker roots */
   height: 25px;
-  border-radius: 2px;
+  border-radius: 3px;
   transform-origin: top center;
 }
 
-
-.root-tendril:nth-child(1) { left: 40%; transform: rotate(45deg); height: 30px; }
+.root-tendril:nth-child(1) { left: 35%; transform: rotate(45deg); height: 30px; }
 .root-tendril:nth-child(2) { left: 45%; transform: rotate(15deg); height: 40px; }
 .root-tendril:nth-child(3) { right: 45%; transform: rotate(-15deg); height: 40px; }
-.root-tendril:nth-child(4) { right: 40%; transform: rotate(-45deg); height: 30px; }
+.root-tendril:nth-child(4) { right: 35%; transform: rotate(-45deg); height: 30px; }
 
 .leaf {
   position: absolute;
@@ -169,7 +163,6 @@ body {
 }
 .leaf.left { left: -38px; top: 80px; transform: rotate(-25deg); }
 .leaf.right { right: -48px; top: 140px; transform: rotate(110deg); }
-
 
 @keyframes bloom-up {
   from { transform: translateX(-50%) scale(0) rotate(var(--rot)); opacity: 0; }
@@ -216,8 +209,9 @@ body {
 @media (max-width:600px) {
   .quote-text { font-size: 1.5rem; }
   .new-year-text { font-size: 1.1rem; }
-  .flower-container { transform: scale(0.85); }
-  .stem { width: 10px; height: 30vh; }
+  /* Normal bloom size for mobile - not too big */
+  .flower-container { transform: scale(0.7); margin-bottom: 60px; }
+  .stem { width: 12px; height: 25vh; } /* Shortened so it doesn't cover screen */
 }
 </style>
 </head>
@@ -251,7 +245,6 @@ body {
 const head = document.getElementById("flowerHead");
 const container = document.getElementById("flowerContainer");
 
-
 [[18,75,210,0],[14,65,170,0.5],[11,55,130,1.0],[9,40,90,1.5]]
 .forEach(([c,w,h,d])=>{
   for(let i=0;i<c;i++){
@@ -265,7 +258,6 @@ const container = document.getElementById("flowerContainer");
   }
 });
 
-
 function handleMove(x, y) {
   const rotY = (x - window.innerWidth / 2) / window.innerWidth * 15;
   const rotX = -(y - window.innerHeight / 2) / window.innerHeight * 8;
@@ -273,7 +265,6 @@ function handleMove(x, y) {
 }
 document.addEventListener("mousemove", e => handleMove(e.clientX, e.clientY));
 document.addEventListener("touchmove", e => handleMove(e.touches[0].clientX, e.touches[0].clientY), {passive:true});
-
 
 function createParticle(){
   const p=document.createElement("div");
