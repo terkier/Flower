@@ -1,313 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<link href="https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>For you</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Midnight Bloom - Happy New Year</title>
+    <link href="https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
-<style>
-:root {
-  --pot-color: #2c3e50;
-  --pot-rim: #34495e;
-  --blue-main: #0026ff;
-  --blue-edge: #000b4d;
-  --white-main: #ffffff;
-  --white-edge: #d1d1d1;
-}
+    <style>
+        :root {
+            --stem-color: #2d5a27;
+            --petal-main: #3a7bd5;
+            --petal-inner: #8fbfff;
+            --petal-edge: #1e4fa3;
+            --glow: #9fd3ff;
+            --moon-color: #f5f3ce;
+        }
 
-body {
-  margin: 0;
-  height: 100dvh;
-  background: radial-gradient(circle at center, #0a0c1a, #020308);
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  perspective: 1000px;
-  touch-action: none;
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-}
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #020111 10%, #191621 100%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            -webkit-tap-highlight-color: transparent;
+        }
 
+        /* --- THE MOON --- */
+        .moon {
+            position: absolute;
+            top: 12%;
+            right: 15%;
+            width: 80px;
+            height: 80px;
+            background: var(--moon-color);
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 
+                0 0 20px var(--moon-color),
+                0 0 60px rgba(245, 243, 206, 0.4);
+            opacity: 0.9;
+        }
 
-.quote-container {
-  position: fixed;
-  top: 8%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  text-align: center;
-  z-index: 100;
-  opacity: 0;
-  animation: fade-in 2s ease-out forwards;
-}
+        /* Moon Crater Details */
+        .moon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(0,0,0,0.05) 10%, transparent 20%),
+                radial-gradient(circle at 60% 70%, rgba(0,0,0,0.05) 15%, transparent 25%),
+                radial-gradient(circle at 75% 35%, rgba(0,0,0,0.05) 8%, transparent 18%);
+        }
 
-.quote-text {
-  font-family: "Winky Rough";
-  font-style: italic;
-  font-size: 2.5rem;
-  color: white;
-  text-shadow: 0 0 15px #4d66ff;
-  margin-bottom: 5px;
-}
+        /* --- THE VIGNETTE --- */
+        body::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.4) 100%);
+            pointer-events: none;
+            z-index: 100;
+        }
 
-.happy-new-year {
-  font-family: "Winky Rough";
-  font-size: 1.8rem;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-shadow: 0 0 10px #fff, 0 0 20px #0026ff;
-  opacity: 0.9;
-}
+        #scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
 
+        /* ================= TEXT ================= */
+        .quote-container {
+            position: fixed;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            text-align: center;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            animation: fade-in 2.5s ease-out forwards, float-text 4s ease-in-out infinite;
+            animation-delay: 0.5s, 2.5s;
+        }
 
-.pot-container {
-  position: relative;
-  width: 100%;
-  height: 60vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  margin-bottom: -10px;
-}
+        .quote-text {
+            font-family: "Winky Rough";
+            font-style: italic;
+            font-size: 2.2rem;
+            color: white;
+            text-shadow: 0 0 15px var(--glow);
+            margin-bottom: 5px;
+            padding: 0 20px;
+        }
 
-.pot {
-  position: absolute;
-  bottom: 0;
-  width: 100px;
-  height: 80px;
-  background: linear-gradient(to right, #1a252f, var(--pot-color), #34495e);
-  border-radius: 5px 5px 20px 20px;
-  z-index: 20;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
+        .new-year-text {
+            font-family: "Winky Rough";
+            font-size: 1.5rem;
+            letter-spacing: 6px;
+            color: var(--glow);
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
 
-.pot-rim {
-  position: absolute;
-  bottom: 75px;
-  width: 110px;
-  height: 15px;
-  background: var(--pot-rim);
-  border-radius: 5px;
-  z-index: 21;
-}
+        /* ================= FLOWER ================= */
+        .flower-container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
 
+        .flower-head {
+            position: relative;
+            width: 0; height: 0;
+            z-index: 1;
+            animation: sway-flower 6s ease-in-out infinite;
+            isolation: isolate;
+        }
 
-.flower-container {
-  position: absolute;
-  bottom: 40px; 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform-origin: bottom center;
-}
+        .petal {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            background:
+                radial-gradient(circle at 50% 15%, rgba(255,255,255,0.45), transparent 60%),
+                linear-gradient(to top, var(--petal-edge), var(--petal-main), var(--petal-inner));
+            border-radius: 50% 50% 25% 25% / 80% 80% 20% 20%;
+            transform-origin: bottom center;
+            opacity: 0;
+            box-shadow: inset 0 -10px 20px rgba(0, 0, 0, 0.2);
+            animation: bloom-up 4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
 
-.f1 { transform: rotate(-22deg) scale(0.8); }
-.f2 { transform: rotate(-10deg) scale(0.9); z-index: 8; }
-.f3 { transform: rotate(0deg) scale(1); z-index: 10; }
-.f4 { transform: rotate(10deg) scale(0.9); z-index: 8; }
-.f5 { transform: rotate(22deg) scale(0.8); }
+        .core {
+            position: absolute;
+            width: 35px; height: 35px;
+            background: radial-gradient(circle, #e8f6ff, #4fa3ff);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            box-shadow: 0 0 45px var(--glow);
+            animation: pulse-core 2s infinite;
+        }
 
-.flower-head { position: relative; z-index: 10; animation: sway 6s ease-in-out infinite; }
+        .stem {
+            width: 8px;
+            height: 200px;
+            background: linear-gradient(to bottom, var(--stem-color), #0a1a08);
+            border-radius: 5px;
+            margin-top: -5px;
+            position: relative;
+        }
 
-.petal {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  border-radius: 50% 50% 20% 20% / 80% 80% 20% 20%;
-  transform-origin: bottom center;
-  opacity: 0;
-  box-shadow: inset 0 -5px 8px rgba(0,0,0,0.3);
-  animation: bloom-up 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
+        .leaf {
+            position: absolute;
+            width: 40px; height: 20px;
+            background: linear-gradient(to right, #2a5a27, #1a3a17);
+            border-radius: 0 100% 0 100%;
+        }
 
-.blue .petal { background: linear-gradient(to top, var(--blue-edge), var(--blue-main), #4d66ff); }
-.white .petal { background: linear-gradient(to top, var(--white-edge), var(--white-main), #ffffff); }
+        .leaf.left { left: -35px; top: 70px; transform: rotate(-25deg); }
+        .leaf.right { right: -40px; top: 110px; transform: rotate(110deg); }
 
-.core {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 15;
-  background: radial-gradient(circle, #fff, #999);
-}
+        /* ================= ANIMATIONS ================= */
+        @keyframes fade-in { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+        @keyframes float-text { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-10px); } }
+        @keyframes bloom-up {
+            0% { transform: translateX(-50%) scale(0) rotate(var(--rot)) translateY(40px); opacity: 0; }
+            100% { transform: translateX(-50%) scale(1) rotate(var(--rot)) translateY(0); opacity: 1; }
+        }
+        @keyframes sway-flower { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+        @keyframes pulse-core { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.1); } }
 
-.stem {
-  width: 5px;
-  height: 25vh;
-  background: linear-gradient(to bottom, #1a3a17, #0d1a0b);
-  border-radius: 2px;
-}
-
-
-.firework-projectile {
-  position: fixed;
-  width: 4px;
-  height: 4px;
-  background: #fff;
-  border-radius: 50%;
-  z-index: 50;
-  box-shadow: 0 0 10px #fff;
-}
-
-.firework-spark {
-  position: fixed;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  z-index: 50;
-  pointer-events: none;
-}
-
-
-.baby-breath {
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  filter: blur(1px);
-  opacity: 0.6;
-  pointer-events: none;
-  animation: float-up var(--d) linear infinite;
-}
-
-@keyframes bloom-up {
-  to { transform: translateX(-50%) scale(1) rotate(var(--r)); opacity: 1; }
-}
-@keyframes float-up {
-  0% { transform: translateY(0); opacity: 0; }
-  50% { opacity: 0.7; }
-  100% { transform: translateY(-100vh); opacity: 0; }
-}
-@keyframes sway { 0%, 100% { transform: rotate(-1.5deg); } 50% { transform: rotate(1.5deg); } }
-@keyframes fade-in { to { opacity: 1; } }
-
-@media (max-width: 600px) {
-  .pot-container { transform: scale(0.85); }
-  .quote-text { font-size: 1.4rem; }
-  .happy-new-year { font-size: 1.1rem; }
-}
-</style>
+        @media (max-width: 600px) {
+            .moon { width: 50px; height: 50px; right: 10%; top: 8%; }
+            .quote-text { font-size: 1.5rem; }
+            .new-year-text { font-size: 1rem; letter-spacing: 4px; }
+            .flower-container { transform: scale(0.75); margin-bottom: 20px;}
+        }
+    </style>
 </head>
-<body>
+<body onclick="rebloom()">
 
-<div class="quote-container">
-  <div class="quote-text">"Everything blooms in its own time."</div>
-  <div class="happy-new-year">Happy New Year!</div>
-</div>
+    <div class="moon"></div>
+    <canvas id="scene"></canvas>
 
-<div class="pot-container" id="bouquet">
-  <div class="pot"></div>
-  <div class="pot-rim"></div>
-  
-  <div class="flower-container f1 white"><div class="flower-head" id="h1"><div class="core"></div></div><div class="stem"></div></div>
-  <div class="flower-container f2 blue"><div class="flower-head" id="h2"><div class="core"></div></div><div class="stem"></div></div>
-  <div class="flower-container f3 white"><div class="flower-head" id="h3"><div class="core"></div></div><div class="stem"></div></div>
-  <div class="flower-container f4 blue"><div class="flower-head" id="h4"><div class="core"></div></div><div class="stem"></div></div>
-  <div class="flower-container f5 white"><div class="flower-head" id="h5"><div class="core"></div></div><div class="stem"></div></div>
-</div>
+    <div class="quote-container">
+      <div class="quote-text">"Everything blooms in its own time."</div>
+      <div class="new-year-text">HAPPY NEW YEAR</div>
+    </div>
+
+    <div class="flower-container">
+      <div class="flower-head" id="flowerHead">
+        <div class="core"></div>
+      </div>
+      <div class="stem">
+        <div class="leaf left"></div>
+        <div class="leaf right"></div>
+      </div>
+    </div>
 
 <script>
-function drawFlower(id, delay) {
-  const h = document.getElementById(id);
-  const config = [[12, 40, 95, 0], [10, 32, 65, 0.4], [8, 22, 40, 0.8]];
-  config.forEach(([c, w, h_val, d]) => {
-    for(let i=0; i<c; i++){
-      const p = document.createElement("div");
-      p.className = "petal";
-      p.style.width = w+"px"; p.style.height = h_val+"px";
-      p.style.setProperty("--r", (360/c*i)+"deg");
-      p.style.animationDelay = (delay + d + (i*0.06))+"s";
-      h.appendChild(p);
+    const canvas = document.getElementById('scene');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let stars = [], grassBlades = [], fireworks = [], fireflies = [];
+
+    // --- FIREWORKS ---
+    class FireworkParticle {
+        constructor(x, y, color) {
+            this.x = x; this.y = y;
+            this.color = color;
+            this.angle = Math.random() * Math.PI * 2;
+            this.velocity = Math.random() * 3 + 2;
+            this.friction = 0.96;
+            this.gravity = 0.06;
+            this.opacity = 1;
+            this.decay = Math.random() * 0.01 + 0.01;
+        }
+        update() {
+            this.velocity *= this.friction;
+            this.x += Math.cos(this.angle) * this.velocity;
+            this.y += Math.sin(this.angle) * this.velocity + this.gravity;
+            this.opacity -= this.decay;
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 1.2, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${this.color}, ${this.opacity})`;
+            ctx.fill();
+        }
     }
-  });
-}
 
-drawFlower("h3", 0.2); 
-drawFlower("h2", 0.7); 
-drawFlower("h4", 0.7);
-drawFlower("h1", 1.2); 
-drawFlower("h5", 1.2);
+    // --- FIREFLY CLASS ---
+    class Firefly {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = height - (Math.random() * 150 + 50);
+            this.angle = Math.random() * Math.PI * 2;
+            this.velocity = Math.random() * 0.5 + 0.2;
+            this.size = Math.random() * 1.5 + 0.5;
+            this.blink = Math.random() * 0.05;
+            this.op = Math.random();
+        }
+        update() {
+            this.x += Math.cos(this.angle) * this.velocity;
+            this.y += Math.sin(this.angle) * this.velocity;
+            this.angle += Math.random() * 0.2 - 0.1;
+            this.op = Math.abs(Math.sin(Date.now() * 0.002 + this.blink * 100));
+            if (this.x < 0) this.x = width;
+            if (this.x > width) this.x = 0;
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, 7);
+            ctx.fillStyle = `rgba(160, 255, 160, ${this.op})`;
+            ctx.fill();
+        }
+    }
 
-setInterval(() => {
-  const b = document.createElement("div");
-  b.className = "baby-breath";
-  const s = Math.random()*3+2;
-  b.style.width = s+"px"; b.style.height = s+"px";
-  b.style.left = Math.random()*100+"vw";
-  b.style.bottom = "10vh";
-  b.style.setProperty("--d", (Math.random()*5+5)+"s");
-  document.body.appendChild(b);
-  setTimeout(() => b.remove(), 10000);
-}, 400);
+    function launchFirework() {
+        const x = Math.random() * width;
+        const y = Math.random() * height * 0.45;
+        const colors = ['143, 191, 255', '159, 211, 255', '255, 255, 255', '58, 123, 213'];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        for (let i = 0; i < 40; i++) fireworks.push(new FireworkParticle(x, y, color));
+    }
 
-function launchFirework(side) {
-  const startX = side === 'left' ? Math.random() * 20 + 5 : Math.random() * 20 + 75;
-  const projectile = document.createElement('div');
-  projectile.className = 'firework-projectile';
-  projectile.style.left = startX + 'vw';
-  projectile.style.bottom = '0';
-  document.body.appendChild(projectile);
+    class GrassBlade {
+        constructor(x, h, color = null) {
+            this.x = x; this.height = h;
+            this.speed = 0.02 + Math.random() * 0.02;
+            this.offset = Math.random() * Math.PI * 2;
+            this.color = color || `rgb(15, ${30 + Math.random() * 30}, 20)`;
+        }
+        draw(time) {
+            const tilt = Math.sin(time * this.speed + this.offset) * 10;
+            ctx.beginPath();
+            ctx.moveTo(this.x, height);
+            ctx.quadraticCurveTo(this.x, height - this.height/2, this.x + tilt, height - this.height);
+            ctx.lineWidth = 2.5;
+            ctx.strokeStyle = this.color;
+            ctx.stroke();
+        }
+    }
 
-  const targetY = Math.random() * 40 + 40; 
-  const duration = 1200; 
-  
-  projectile.animate([
-    { bottom: '0', opacity: 1 },
-    { bottom: targetY + 'vh', opacity: 1, offset: 0.9 },
-    { bottom: targetY + 'vh', opacity: 0 }
-  ], {
-    duration: duration,
-    easing: 'ease-out'
-  }).onfinish = () => {
-    projectile.remove();
-    createExplosion(startX, targetY);
-  };
-}
+    function init() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        stars = []; grassBlades = []; fireflies = [];
+        
+        for (let i = 0; i < 200; i++) stars.push({ x: Math.random()*width, y: Math.random()*height*0.7, s: Math.random()*1.5, op: Math.random(), sp: 0.01+Math.random()*0.02 });
+        
+        for (let i = 0; i < 150; i++) {
+            let x = i * (width/150);
+            let h = Math.abs(x - width/2) < 60 ? 30 + Math.random()*20 : 50 + Math.random()*80;
+            grassBlades.push(new GrassBlade(x, h));
+        }
 
-function createExplosion(x, y) {
-  const colors = ['#0026ff', '#00ffcc', '#ffffff', '#ff00ff', '#0099ff'];
-  const color = colors[Math.floor(Math.random() * colors.length)];
-  const sparkCount = 40;
+        for (let i = 0; i < 15; i++) {
+            grassBlades.push(new GrassBlade(Math.random()*60, 150 + Math.random()*100, '#051005'));
+            grassBlades.push(new GrassBlade(width - Math.random()*60, 150 + Math.random()*100, '#051005'));
+        }
 
-  for (let i = 0; i < sparkCount; i++) {
-    const spark = document.createElement('div');
-    spark.className = 'firework-spark';
-    spark.style.backgroundColor = color;
-    spark.style.left = x + 'vw';
-    spark.style.bottom = y + 'vh';
-    spark.style.boxShadow = `0 0 8px ${color}`;
-    document.body.appendChild(spark);
+        for (let i = 0; i < 12; i++) fireflies.push(new Firefly());
+    }
 
-    const angle = (Math.PI * 2 / sparkCount) * i;
-    const velocity = Math.random() * 15 + 5;
-    const vx = Math.cos(angle) * velocity;
-    const vy = Math.sin(angle) * velocity;
+    function animate(time) {
+        ctx.clearRect(0, 0, width, height);
+        
+        stars.forEach(s => {
+            s.op += Math.sin(time * 0.001 * s.sp) * 0.01;
+            ctx.fillStyle = `rgba(255,255,255,${Math.abs(s.op)})`;
+            ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, 7); ctx.fill();
+        });
 
-    spark.animate([
-      { transform: 'translate(0, 0)', opacity: 1 },
-      { transform: `translate(${vx}vw, ${-vy}vh)`, opacity: 0 }
-    ], {
-      duration: 1000 + Math.random() * 500,
-      easing: 'cubic-bezier(0, .9, .57, 1)'
-    }).onfinish = () => spark.remove();
-  }
-}
+        if (Math.random() < 0.02) launchFirework();
+        for (let i = fireworks.length - 1; i >= 0; i--) {
+            fireworks[i].update();
+            fireworks[i].draw();
+            if (fireworks[i].opacity <= 0) fireworks.splice(i, 1);
+        }
 
-setTimeout(() => {
-  setInterval(() => launchFirework('left'), 3000);
-  setTimeout(() => {
-    setInterval(() => launchFirework('right'), 3000);
-  }, 1500);
-}, 2000);
+        fireflies.forEach(f => { f.update(); f.draw(); });
+        grassBlades.forEach(g => g.draw(time * 0.05));
+        
+        requestAnimationFrame(animate);
+    }
 
-document.addEventListener("touchmove", e => {
-  const rot = (e.touches[0].clientX - window.innerWidth/2) / 15;
-  document.getElementById("bouquet").style.transform = `rotateY(${rot}deg)`;
-}, {passive: true});
+    const head = document.getElementById("flowerHead");
+    const petalLayers = [[16, 45, 135, 0], [13, 40, 115, 0.4], [11, 35, 95, 0.8], [9, 25, 65, 1.2]];
+
+    function rebloom() {
+        const existing = head.querySelectorAll('.petal');
+        existing.forEach(p => p.remove());
+        petalLayers.forEach(([count, w, h, delay]) => {
+            for (let i = 0; i < count; i++) {
+                const p = document.createElement("div");
+                p.className = "petal";
+                p.style.setProperty("--rot", `${(360 / count) * i}deg`);
+                p.style.width = `${w}px`; p.style.height = `${h}px`;
+                p.style.animationDelay = `${delay + i * 0.05}s`;
+                head.appendChild(p);
+            }
+        });
+    }
+
+    window.addEventListener('resize', init);
+    init();
+    animate(0);
+    rebloom();
 </script>
+
 </body>
 </html>
