@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Midnight Bloom - Happy New Year</title>
+    <title>Midnight Bloom - For you</title>
     <link href="https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
     <style>
@@ -29,7 +29,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- THE MOON --- */
+        
         .moon {
             position: absolute;
             top: 12%;
@@ -45,7 +45,7 @@
             opacity: 0.9;
         }
 
-        /* Moon Crater Details */
+        
         .moon::after {
             content: '';
             position: absolute;
@@ -58,7 +58,7 @@
                 radial-gradient(circle at 75% 35%, rgba(0,0,0,0.05) 8%, transparent 18%);
         }
 
-        /* --- THE VIGNETTE --- */
+        
         body::after {
             content: "";
             position: absolute;
@@ -78,7 +78,6 @@
             pointer-events: none;
         }
 
-        /* ================= TEXT ================= */
         .quote-container {
             position: fixed;
             top: 15%;
@@ -112,7 +111,7 @@
             opacity: 0.9;
         }
 
-        /* ================= FLOWER ================= */
+        
         .flower-container {
             position: relative;
             z-index: 10;
@@ -174,7 +173,7 @@
         .leaf.left { left: -35px; top: 70px; transform: rotate(-25deg); }
         .leaf.right { right: -40px; top: 110px; transform: rotate(110deg); }
 
-        /* ================= ANIMATIONS ================= */
+        
         @keyframes fade-in { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
         @keyframes float-text { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-10px); } }
         @keyframes bloom-up {
@@ -218,7 +217,7 @@
     let width, height;
     let stars = [], grassBlades = [], fireworks = [], fireflies = [];
 
-    // --- FIREWORKS ---
+    
     class FireworkParticle {
         constructor(x, y, color) {
             this.x = x; this.y = y;
@@ -244,7 +243,7 @@
         }
     }
 
-    // --- FIREFLY CLASS ---
+    
     class Firefly {
         constructor() {
             this.x = Math.random() * width;
